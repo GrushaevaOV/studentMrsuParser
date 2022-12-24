@@ -7,17 +7,19 @@ import javax.xml.stream.XMLStreamReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class XMLParser implements Parser {
 
     @Override
     public void parse(File file) {
+        readAddress(file);
 
     }
 
-//     todo дополнить реализацию, это чисто пример
-    private List<? extends Object> readAddress(File file) {
+    //     todo дополнить реализацию, это чисто пример
+    private List<Addres> readAddress(File file) {
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader parser = null;
 
@@ -28,14 +30,20 @@ public class XMLParser implements Parser {
         } catch (XMLStreamException e) {
             System.out.println(e.getMessage());
         }
-
+        List<Addres> addressBook = new ArrayList<>();
         try {
             while (true) {
                 assert parser != null;
                 if (!parser.hasNext()) break;
                 int event = parser.next();
                 if (event == XMLStreamConstants.START_ELEMENT) {
-//                    todo: добавить реализацию
+                    if (parser.getLocalName().equals("address")) {
+                        Addres add = new Addres(Integer.parseInt(parser.getAttributeValue(0)), parser.getAttributeValue(1), parser.getAttributeValue(2), Integer.parseInt(parser.getAttributeValue(3)), Integer.parseInt(parser.getAttributeValue(4)), Integer.parseInt(parser.getAttributeValue(5)));
+                        addressBook.add(add);
+                    }
+                }
+                for (Addres addres : addressBook) {
+                    addres.prin();
                 }
             }
         } catch (XMLStreamException e) {
