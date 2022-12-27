@@ -8,7 +8,7 @@ public class Addres {
     int floor;        // этаж
     int flatNumber;   // квартира
 
-    public Addres(  int id,String city,String street,int house,int floor,int flatNumber) {
+    public Addres() {
         this.id = id;
         this.city = city;
         this.street = street;
@@ -72,5 +72,7 @@ public class Addres {
     void prin () {
         System.out.println(toAddress());
     }
+
+
 }
 

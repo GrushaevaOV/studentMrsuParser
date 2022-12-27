@@ -8,12 +8,13 @@ public class Client {
     public String personnelNumber; // персональный номер
     public Addres address;         // адрес проживания
 
-    public Client (int id, String name, String personnelNumber, Addres address ){
+    public Client (){
         this.id=id;
         this.name=name;
         this.personnelNumber=personnelNumber;
         this.address=address;
     }
+
 
     void setId(int id) {
         this.id = id;
@@ -48,8 +49,13 @@ public class Client {
     }
 
     String toS () {
-        return id + name + personnelNumber + address;
+        String string = id +" "+ name +" "+ personnelNumber +" "+ address.getCity()+" "+ address.getStreet()+" "+ address.getHouse()+" "+ address.getFloor()+" "+ address.getFlatNumber();
+
+       return string;
     }
 
+    void pprin () {
 
+        System.out.println(toS());
+    }
 }
