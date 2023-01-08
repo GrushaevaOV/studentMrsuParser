@@ -11,19 +11,19 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class XMLParser implements Parser {
-    /*   public Map convertListHash(List list) {
-           Map map = new HashMap<>();
-           for (Addres addresBook : list) {
-               map.put(adres.getId(), adres);
-           }
-           return map;
-       }*/
     static HashMap<Integer, Addres> key = new HashMap<>();
+    static HashMap<Integer, Integer> count = new HashMap<>();
 
-    // HashMap<id, Addres> hashMap
-//    hashMap.get(id);
+
+    public Map convert(List<Addres> list) {
+        Map key = (Map) list.stream()
+                .collect(Collectors.toMap(Addres::getId, address -> address));
+        return key;
+    }
+
     @Override
     public void parse(File file) {
         List<Addres> re = readAddress(file);
@@ -85,9 +85,11 @@ public class XMLParser implements Parser {
 
         List<Client> clientBook = new ArrayList<>();
         var re = readAddress(new File("address.xml"));
-        for (Addres ad : re) {
+      /*  for (Addres ad : re) {
             key.put(ad.getId(), ad);
-        }
+        }*/
+        key = (HashMap<Integer, Addres>) convert(re);
+
         try {
             while (true) {
                 assert parser != null;
@@ -112,14 +114,35 @@ public class XMLParser implements Parser {
         for (Client client : clientBook) {
             client.pprin();
         }
-        int count = 0;
-        for (Client client : clientBook) {
-            if (client.address.getFloor() == 2) {
-                count++;
+
+        //2задание
+        for (int i = 0; i < clientBook.size(); i++) {
+            for (int j = i + 1; j < clientBook.size(); j++) {
+                Client fam = clientBook.get(i);
+                Client hum = clientBook.get(j);
+                if (fam.address == hum.address) {
+                    System.out.println();
+                    fam.prinAddres();
+                    fam.prinName();
+                    hum.prinName();
+                }
             }
         }
-        System.out.println(1 + " Floor: " + count + "human");
-        return null;
+        System.out.println();
+        //3 задание
+        for (Client ad : clientBook) {
+            if (!count.containsKey(ad.address.getFloor())) {
+                count.put(ad.address.getFloor(), 1);
+            } else {
+                count.put(ad.address.getFloor(), count.get(ad.address.getFloor()) + 1);
+            }
+        }
 
+        System.out.println(count);
+
+        return null;
     }
+
+
 }
+

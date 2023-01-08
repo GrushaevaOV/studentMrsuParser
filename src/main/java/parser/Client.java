@@ -58,4 +58,21 @@ public class Client {
 
         System.out.println(toS());
     }
+    String toName () {
+        String string = id +" "+ name +" "+ personnelNumber;
+        return string;
+    }
+    void prinName () {
+
+        System.out.println(toName());
+    }
+
+    String toAddres () {
+        return address.getCity()+" "+ address.getStreet()+" "+ address.getHouse()+" "+ address.getFloor()+" "+ address.getFlatNumber();
+    }
+    void prinAddres () {
+
+        System.out.println(toAddres());
+    }
+
 }

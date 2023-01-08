@@ -61,18 +61,39 @@ public class Addres {
         return floor;
     }
 
+    public int gF(int floor) throws FloorException {
+        if (floor < 1) throw new FloorException("The number is less than 1", floor);
+
+        return floor;
+    }
+
     public int getFlatNumber() {
         return flatNumber;
     }
 
-    String toAddress (){
-        return id +" " + city +" "+ street +" "+ house +" "+ floor +" "+ flatNumber;
+    String toAddress() {
+        return id + " " + city + " " + street + " " + house + " " + floor + " " + flatNumber;
     }
 
-    void prin () {
+    void prin() {
         System.out.println(toAddress());
     }
 
 
 }
+
+class FloorException extends Exception {
+    int floor;
+
+    public int getFloor() {
+        return floor;
+    }
+
+    public FloorException(String message, int flo) {
+
+        super(message);
+        floor = flo;
+    }
+}
+
 
