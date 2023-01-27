@@ -8,13 +8,16 @@ public class Addres {
     int floor;        // этаж
     int flatNumber;   // квартира
 
-    public Addres() {
+    public Addres(int id, String city, String street, int house, int floor, int flatNumber) {
         this.id = id;
         this.city = city;
         this.street = street;
         this.house = house;
         this.floor = floor;
         this.flatNumber = flatNumber;
+    }
+
+    public Addres() {
     }
 
     public void setId(int id) {
@@ -61,12 +64,6 @@ public class Addres {
         return floor;
     }
 
-    public int gF(int floor) throws FloorException {
-        if (floor < 1) throw new FloorException("The number is less than 1", floor);
-
-        return floor;
-    }
-
     public int getFlatNumber() {
         return flatNumber;
     }
@@ -79,21 +76,6 @@ public class Addres {
         System.out.println(toAddress());
     }
 
-
-}
-
-class FloorException extends Exception {
-    int floor;
-
-    public int getFloor() {
-        return floor;
-    }
-
-    public FloorException(String message, int flo) {
-
-        super(message);
-        floor = flo;
-    }
 }
 
 

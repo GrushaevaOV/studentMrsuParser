@@ -1,5 +1,7 @@
 package parser;
 
+import FloorExeption.ParserException;
+
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
 import javax.xml.stream.XMLStreamException;
@@ -14,21 +16,31 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class XMLParser implements Parser {
-    static HashMap<Integer, Addres> key = new HashMap<>();
-    static HashMap<Integer, Integer> count = new HashMap<>();
-
 
     public Map convert(List<Addres> list) {
-        Map key = (Map) list.stream()
+        Map key = list.stream()
                 .collect(Collectors.toMap(Addres::getId, address -> address));
         return key;
     }
 
     @Override
-    public void parse(File file) {
-        List<Addres> re = readAddress(file);
-        readClient(file);
+    public void parse(File... files) {
 
+//    try/catch обработай ошибки
+        try {
+            if (files[0].getName().equals("address.xml")) {
+                readAddress(files[0]);
+                readClient(files[1]);
+                //throw new ParserException("", 1);
+            }
+        } catch (NullPointerException e  /*| ParserException e*/) {
+            System.out.println("O NO, null");
+        }
+    }
+
+    public void task(List<Client>... lists) {
+        family(lists[0]);
+        //neighbour(lists[1]);
     }
 
     private List<Addres> readAddress(File file) {
@@ -61,15 +73,14 @@ public class XMLParser implements Parser {
                     }
                 }
             }
+
         } catch (XMLStreamException e) {
             System.out.println(e.getMessage());
         }
-
-        for (Addres addres : addressBook) {
-            addres.prin();
-        }
+        AddresAndClientBase.listAdress = addressBook;
         return addressBook;
     }
+
 
     private List<Client> readClient(File file) {
         XMLInputFactory factory = XMLInputFactory.newInstance();
@@ -85,11 +96,7 @@ public class XMLParser implements Parser {
 
         List<Client> clientBook = new ArrayList<>();
         var re = readAddress(new File("address.xml"));
-      /*  for (Addres ad : re) {
-            key.put(ad.getId(), ad);
-        }*/
-        key = (HashMap<Integer, Addres>) convert(re);
-
+        var key = (HashMap<Integer, Addres>) convert(re);
         try {
             while (true) {
                 assert parser != null;
@@ -110,39 +117,34 @@ public class XMLParser implements Parser {
         } catch (XMLStreamException e) {
             System.out.println(e.getMessage());
         }
+         AddresAndClientBase.listClient = clientBook;
+        return clientBook;
+    }
 
-        for (Client client : clientBook) {
-            client.pprin();
-        }
-
-        //2задание
-        for (int i = 0; i < clientBook.size(); i++) {
-            for (int j = i + 1; j < clientBook.size(); j++) {
-                Client fam = clientBook.get(i);
-                Client hum = clientBook.get(j);
-                if (fam.address == hum.address) {
+    public void family(List<Client> list) {
+        for (int i = 0; i < list.size(); i++) {
+            for (int j = i + 1; j < list.size(); j++) {
+                Client person = list.get(i);
+                Client human = list.get(j);
+                if (person.address == human.address) {
                     System.out.println();
-                    fam.prinAddres();
-                    fam.prinName();
-                    hum.prinName();
+                    person.prinAddres();
+                    person.prinName();
+                    human.prinName();
                 }
             }
         }
-        System.out.println();
-        //3 задание
-        for (Client ad : clientBook) {
-            if (!count.containsKey(ad.address.getFloor())) {
-                count.put(ad.address.getFloor(), 1);
-            } else {
-                count.put(ad.address.getFloor(), count.get(ad.address.getFloor()) + 1);
-            }
-        }
-
-        System.out.println(count);
-
-        return null;
     }
 
-
+  /*  public void neighbour(List<Client> list) {
+        for (Client human : list) {
+            if (!count.containsKey(human.address.getFloor())) {
+                count.put(human.address.getFloor(), 1);
+            } else {
+                count.put(human.address.getFloor(), count.get(human.address.getFloor()) + 1);
+            }
+        }
+        System.out.println(count);
+    }*/
 }
 

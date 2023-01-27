@@ -9,12 +9,14 @@ public class Client {
     public Addres address;         // адрес проживания
 
     public Client (){
-        this.id=id;
-        this.name=name;
-        this.personnelNumber=personnelNumber;
-        this.address=address;
     }
 
+    public Client(int id, String name, String personnelNumber, Addres address) {
+        this.id = id;
+        this.name = name;
+        this.personnelNumber = personnelNumber;
+        this.address = address;
+    }
 
     void setId(int id) {
         this.id = id;
