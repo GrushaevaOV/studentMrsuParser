@@ -17,10 +17,9 @@ import java.util.stream.Collectors;
 
 public class XMLParser implements Parser {
 
-    public Map convert(List<Addres> list) {
-        Map key = list.stream()
+    public Map convertFromListInMap(List<Addres> list) {
+        return list.stream()
                 .collect(Collectors.toMap(Addres::getId, address -> address));
-        return key;
     }
 
     @Override
@@ -31,16 +30,11 @@ public class XMLParser implements Parser {
             if (files[0].getName().equals("address.xml")) {
                 readAddress(files[0]);
                 readClient(files[1]);
-                //throw new ParserException("", 1);
+                throw new ParserException("", 1);
             }
-        } catch (NullPointerException e  /*| ParserException e*/) {
+        } catch (NullPointerException | ParserException e) {
             System.out.println("O NO, null");
         }
-    }
-
-    public void task(List<Client>... lists) {
-        family(lists[0]);
-        //neighbour(lists[1]);
     }
 
     private List<Addres> readAddress(File file) {
@@ -82,7 +76,7 @@ public class XMLParser implements Parser {
     }
 
 
-    private List<Client> readClient(File file) {
+    private void readClient(File file) {
         XMLInputFactory factory = XMLInputFactory.newInstance();
         XMLStreamReader parser = null;
 
@@ -95,8 +89,7 @@ public class XMLParser implements Parser {
         }
 
         List<Client> clientBook = new ArrayList<>();
-        var re = readAddress(new File("address.xml"));
-        var key = (HashMap<Integer, Addres>) convert(re);
+        var idAndAddres = (HashMap<Integer, Addres>) convertFromListInMap(readAddress(new File("address.xml")));
         try {
             while (true) {
                 assert parser != null;
@@ -109,7 +102,7 @@ public class XMLParser implements Parser {
                         human.setId(Integer.parseInt(parser.getAttributeValue(0)));
                         human.setName(parser.getAttributeValue(1));
                         human.setPersonnelNumber(parser.getAttributeValue(2));
-                        human.setAddress(key.get(Integer.parseInt(parser.getAttributeValue(3))));
+                        human.setAddress(idAndAddres.get(Integer.parseInt(parser.getAttributeValue(3))));
                         clientBook.add(human);
                     }
                 }
@@ -117,34 +110,7 @@ public class XMLParser implements Parser {
         } catch (XMLStreamException e) {
             System.out.println(e.getMessage());
         }
-         AddresAndClientBase.listClient = clientBook;
-        return clientBook;
+        AddresAndClientBase.listClient = clientBook;
     }
-
-    public void family(List<Client> list) {
-        for (int i = 0; i < list.size(); i++) {
-            for (int j = i + 1; j < list.size(); j++) {
-                Client person = list.get(i);
-                Client human = list.get(j);
-                if (person.address == human.address) {
-                    System.out.println();
-                    person.prinAddres();
-                    person.prinName();
-                    human.prinName();
-                }
-            }
-        }
-    }
-
-  /*  public void neighbour(List<Client> list) {
-        for (Client human : list) {
-            if (!count.containsKey(human.address.getFloor())) {
-                count.put(human.address.getFloor(), 1);
-            } else {
-                count.put(human.address.getFloor(), count.get(human.address.getFloor()) + 1);
-            }
-        }
-        System.out.println(count);
-    }*/
 }
 

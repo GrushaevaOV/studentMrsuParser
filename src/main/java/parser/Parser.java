@@ -7,7 +7,5 @@ import java.util.List;
 
 public interface Parser {
     void parse(File... files) throws FileNotFoundException, XMLStreamException;
-    void task(List<Client>... lists);
-
 }
 
