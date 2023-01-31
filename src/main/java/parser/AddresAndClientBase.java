@@ -6,9 +6,9 @@ import java.util.List;
 
 public class AddresAndClientBase {
 
-    static List<Addres> listAdress = new ArrayList<>();
+    public static List<Addres> listAdress = new ArrayList<>();
 
-    static List<Client> listClient = new ArrayList<>();
+    public static List<Client> listClient = new ArrayList<>();
 
     public static void printListAddresBook() {
         for (Addres book : listAdress) {
