@@ -1,12 +1,12 @@
-package parser;
+package object;
 
 public class Addres {
-    int id;           // идентификатор
-    String city;         // город
-    String street;       // улица
-    int house;        // дом
-    int floor;        // этаж
-    int flatNumber;   // квартира
+    public int id;           // идентификатор
+    public String city;         // город
+    public String street;       // улица
+    public int house;        // дом
+    public int floor;        // этаж
+    public int flatNumber;   // квартира
 
     public Addres(int id, String city, String street, int house, int floor, int flatNumber) {
         this.id = id;
@@ -68,13 +68,11 @@ public class Addres {
         return flatNumber;
     }
 
-    String toAddress() {
+    public  String toStringAddress() {
         return id + " " + city + " " + street + " " + house + " " + floor + " " + flatNumber;
     }
 
-    void prin() {
-        System.out.println(toAddress());
-    }
+
 
 }
 

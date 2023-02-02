@@ -1,5 +1,5 @@
 
-import parser.AddresAndClientBase;
+import utils.AddresAndClientBase;
 import parser.XMLParser;
 
 import java.io.File;

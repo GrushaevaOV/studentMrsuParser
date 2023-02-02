@@ -1,7 +1,10 @@
-package parser;
+package utils;
 
+import object.Addres;
+import object.Client;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 public class AddresAndClientBase {
@@ -12,13 +15,13 @@ public class AddresAndClientBase {
 
     public static void printListAddresBook() {
         for (Addres book : listAdress) {
-            book.prin();
+            System.out.println(book.toStringAddress());
         }
     }
 
      public static  void printListClientBook() {
-        for (Client book : listClient) {
-            book.pprin();
+        for (Client client : listClient) {
+            System.out.println(client.toString());
         }
     }
 
@@ -29,9 +32,9 @@ public class AddresAndClientBase {
                 Client human = listClient.get(j);
                 if (person.address == human.address) {
                     System.out.println();
-                    person.prinAddres();
-                    person.prinName();
-                    human.prinName();
+                    System.out.println(person.toStringAddres());
+                    System.out.println(person.toStringName());
+                    System.out.println(human.toStringName());
                 }
             }
         }
