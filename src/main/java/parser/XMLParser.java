@@ -87,8 +87,7 @@ public class XMLParser implements Parser {
     }
 
     private List <Client> noDubleLine (List <Client> list) {
-       // HashSet < Client> client = new HashSet<>();
-       for (int i=0;i<list.size();i++){
+        for (int i=0;i<list.size();i++){
            for (int j=i+1;j<list.size();j++) {
                Client person = list.get(i);
                Client human = list.get(j);
@@ -97,7 +96,6 @@ public class XMLParser implements Parser {
                }
            }
        }
-        //List <Client> humans = new ArrayList<>(client);
         return list;
     }
 
@@ -113,11 +111,11 @@ public class XMLParser implements Parser {
                 if (event == XMLStreamConstants.START_ELEMENT) {
                     if (parser.getLocalName().equals("client")) {
                         System.out.println();
-                        Client human = new Client();
-                        human.setId(Integer.parseInt(parser.getAttributeValue(0)));
-                        human.setName(parser.getAttributeValue(1));
-                        human.setPersonnelNumber(parser.getAttributeValue(2));
-                        human.setAddress(addressMap.get(Integer.parseInt(parser.getAttributeValue(3))));
+                        Client human = Client.newBuilder()
+                                .setId(Integer.parseInt(parser.getAttributeValue(0)))
+                                .setName(parser.getAttributeValue(1))
+                                .setPersonnelNumber(parser.getAttributeValue(2))
+                                .setAddress(addressMap.get(Integer.parseInt(parser.getAttributeValue(3)))).build();
                         clientBook.add(human);
                     }
                 }

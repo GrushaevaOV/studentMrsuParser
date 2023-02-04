@@ -68,12 +68,7 @@ public class Addres {
         return flatNumber;
     }
 
-    public  String toStringAddress() {
+    public String toStringAddress() {
         return id + " " + city + " " + street + " " + house + " " + floor + " " + flatNumber;
     }
-
-
-
 }
-
-

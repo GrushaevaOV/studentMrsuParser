@@ -10,7 +10,7 @@ public class IDEMain {
         XMLParser xmlParser = new XMLParser();
         xmlParser.parse(new File("address.xml"), new File("client.xml"));
         AddresAndClientBase.printListClientBook();
-        AddresAndClientBase.listPeopleOnFlatnumber();
-        AddresAndClientBase.numberPeopleOnFloor();
+        //AddresAndClientBase.listPeopleOnFlatnumber();
+        //AddresAndClientBase.numberPeopleOnFloor();
        }
 }

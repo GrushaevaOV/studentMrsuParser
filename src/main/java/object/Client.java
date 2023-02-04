@@ -19,7 +19,7 @@ public class Client {
     public Client() {
     }
 
-    public void setId(int id) {
+    /*public void setId(int id) {
         this.id = id;
     }
 
@@ -34,7 +34,7 @@ public class Client {
     public void setAddress(Addres address) {
         this.address = address;
     }
-
+*/
     public int getId() {
         return id;
     }
@@ -66,4 +66,39 @@ public class Client {
         return address.getCity() + " " + address.getStreet() + " " + address.getHouse() + " " + address.getFloor() + " " + address.getFlatNumber();
     }
 
+    public static Builder newBuilder() {
+        return new Client().new Builder();
+    }
+
+    public class Builder {
+
+        private Builder() {
+
+        }
+
+        public Builder setId(int id) {
+            Client.this.id = id;
+            return this;
+        }
+
+        public Builder setName(String name) {
+            Client.this.name= name;
+            return this;
+        }
+
+        public Builder setPersonnelNumber(String personnelNumber) {
+            Client.this.personnelNumber = personnelNumber;
+            return this;
+        }
+
+        public Builder setAddress(Addres addres) {
+            Client.this.address = addres;
+            return this;
+        }
+        public Client build() {
+            return Client.this;
+        }
+
+    }
 }
+
