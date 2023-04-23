@@ -57,14 +57,6 @@ public class Client {
         return string;
     }
 
-    public String toStringName() {
-        String string = id + " " + name + " " + personnelNumber;
-        return string;
-    }
-
-    public String toStringAddres() {
-        return address.getCity() + " " + address.getStreet() + " " + address.getHouse() + " " + address.getFloor() + " " + address.getFlatNumber();
-    }
 
     public static Builder newBuilder() {
         return new Client().new Builder();
